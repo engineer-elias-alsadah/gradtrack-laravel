@@ -63,7 +63,7 @@ class SubmissionAndReviewWorkflowTest extends TestCase
         $response = $this->actingAs($this->student)
             ->post("/projects/{$this->project->slug}/milestones/{$this->milestone->id}/submissions", [
                 'notes' => 'تم استكمال وثيقة الـ SRS وحصر كافة حالات الحافة وقصص المستخدمين.',
-                'github_url' => 'https://github.com/elias-alsada/gradtrack-laravel',
+                'github_url' => 'https://github.com/engineer-elias-alsadah/gradtrack-laravel',
             ]);
 
         $response->assertRedirect("/projects/{$this->project->slug}/milestones/{$this->milestone->id}");
@@ -87,7 +87,7 @@ class SubmissionAndReviewWorkflowTest extends TestCase
             'user_id' => $this->student->id,
             'version' => 1,
             'notes' => 'ملاحظات التسليم الأولى',
-            'github_url' => 'https://github.com/elias-alsada/gradtrack-laravel',
+            'github_url' => 'https://github.com/engineer-elias-alsadah/gradtrack-laravel',
             'submitted_at' => now(),
         ]);
         $this->milestone->update(['status' => 'submitted']);

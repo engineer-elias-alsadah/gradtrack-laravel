@@ -96,7 +96,7 @@
 
 1. **استنساخ المستودع (Clone Repository):**
    ```bash
-   git clone https://github.com/elias-alsada/gradtrack-laravel.git
+   git clone https://github.com/engineer-elias-alsadah/gradtrack-laravel.git
    cd gradtrack-laravel
    ```
 

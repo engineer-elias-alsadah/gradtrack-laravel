@@ -106,7 +106,7 @@ class EdgeCasesValidationTest extends TestCase
         $response = $this->actingAs($this->enrolledStudent)
             ->post("/projects/{$this->project->slug}/milestones/{$this->milestone->id}/submissions", [
                 'notes' => 'محاولة تسليم إضافي لمرحلة مغلقة ومعتمدة.',
-                'github_url' => 'https://github.com/elias-alsada/gradtrack-laravel',
+                'github_url' => 'https://github.com/engineer-elias-alsadah/gradtrack-laravel',
             ]);
 
         $response->assertSessionHas('error');
@@ -123,7 +123,7 @@ class EdgeCasesValidationTest extends TestCase
             'user_id' => $this->enrolledStudent->id,
             'version' => 1,
             'notes' => 'تسليم أولي لاختبار محاولة التقييم الذاتي.',
-            'github_url' => 'https://github.com/elias-alsada/gradtrack-laravel',
+            'github_url' => 'https://github.com/engineer-elias-alsadah/gradtrack-laravel',
             'submitted_at' => now(),
         ]);
 
@@ -148,7 +148,7 @@ class EdgeCasesValidationTest extends TestCase
             'user_id' => $this->enrolledStudent->id,
             'version' => 1,
             'notes' => 'تسليم أولي.',
-            'github_url' => 'https://github.com/elias-alsada/gradtrack-laravel',
+            'github_url' => 'https://github.com/engineer-elias-alsadah/gradtrack-laravel',
             'submitted_at' => now(),
         ]);
 

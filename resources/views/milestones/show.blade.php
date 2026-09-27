@@ -251,7 +251,7 @@
                         <label for="github_url" style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.35rem;">
                             رابط مستودع أو فرع GitHub <span style="color: #f43f5e;">*</span>
                         </label>
-                        <input type="url" name="github_url" id="github_url" value="{{ old('github_url', 'https://github.com/elias-alsada/gradtrack-laravel') }}" required
+                        <input type="url" name="github_url" id="github_url" value="{{ old('github_url', 'https://github.com/engineer-elias-alsadah/gradtrack-laravel') }}" required
                             placeholder="https://github.com/username/repository"
                             style="width: 100%; padding: 0.65rem; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: white; font-family: 'Outfit', inherit; font-size: 0.9rem; direction: ltr;">
                         <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem; display: block;">
