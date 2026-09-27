@@ -30,11 +30,6 @@ class DashboardController extends Controller
                 $q->whereIn('project_id', $projects->pluck('id'));
             })->with(['milestone.project', 'student'])->latest()->take(5)->get();
 
-        } elseif ($user->isAdmin()) {
-            $projects = Project::with(['supervisor', 'members', 'milestones'])->get();
-            $pendingReviewsCount = Milestone::where('status', 'submitted')->count();
-            $totalStudentsCount = $projects->flatMap->members->unique('id')->count();
-            $recentSubmissions = Submission::with(['milestone.project', 'student'])->latest()->take(5)->get();
         } else {
             // Student
             $projects = $user->projects()->with(['supervisor', 'members', 'milestones'])->get();

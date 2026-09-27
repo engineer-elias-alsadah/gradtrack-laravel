@@ -19,8 +19,8 @@ class StoreReviewRequest extends FormRequest
             return false;
         }
 
-        // Edge Case: Only project supervisor or admin can evaluate submission
-        return $user->isSupervisor() || $user->isAdmin();
+        // Edge Case: Only project supervisor can evaluate submission
+        return $user->isSupervisor();
     }
 
     /**

@@ -68,14 +68,14 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
         ]);
 
-        // 5. Create Department Coordinator / Admin
-        $admin = User::create([
-            'name' => 'أ.د. رئيس قسم هندسة البرمجيات',
-            'email' => 'admin@university.edu',
-            'role' => 'admin',
-            'university_id' => 'DEAN-001',
+        // 5. Create Second Supervisor (Dr. Adel Al-Shemiri) to demonstrate multi-supervisor support
+        $secondSupervisor = User::create([
+            'name' => 'د. عادل الشميري',
+            'email' => 'adel@university.edu',
+            'role' => 'supervisor',
+            'university_id' => 'ENG-2026-02',
             'department' => 'هندسة البرمجيات',
-            'phone' => '+967770000000',
+            'phone' => '+967770000002',
             'password' => Hash::make('password123'),
             'email_verified_at' => now(),
         ]);

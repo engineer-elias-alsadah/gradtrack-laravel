@@ -23,9 +23,9 @@ class ReviewController extends Controller
             abort(404, 'بيانات المراجعة غير متطابقة.');
         }
 
-        // Edge Case Check 2: Only designated supervisor or admin
-        if (! $user->isAdmin() && $project->supervisor_id !== $user->id) {
-            abort(403, 'فقط المشرف الأكاديمي المعين لهذا المشروع أو المنسق يملك صلاحية التقييم.');
+        // Edge Case Check 2: Only designated supervisor
+        if ($project->supervisor_id !== $user->id) {
+            abort(403, 'فقط المشرف الأكاديمي المعين لهذا المشروع يملك صلاحية التقييم.');
         }
 
         DB::transaction(function () use ($request, $submission, $milestone, $project, $user) {

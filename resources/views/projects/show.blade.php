@@ -6,7 +6,7 @@
 <div style="display: flex; flex-direction: column; gap: 2rem;">
 
     <!-- Breadcrumb & Back -->
-    <div style="display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
         <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--text-muted);">
             <a href="{{ route('dashboard') }}" style="color: var(--text-secondary); text-decoration: none;">
                 <i class="fa-solid fa-home"></i> لوحة التحكم
@@ -73,21 +73,48 @@
             </div>
 
             <!-- Team Members -->
-            <div style="display: flex; align-items: center; gap: 1rem; background: rgba(56, 189, 248, 0.06); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid rgba(56, 189, 248, 0.2);">
-                <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(56, 189, 248, 0.2); color: #7dd3fc; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
-                    <i class="fa-solid fa-users"></i>
-                </div>
-                <div style="flex: 1;">
-                    <div style="font-size: 0.75rem; color: #38bdf8; font-weight: 700;">فريق عمل المشروع</div>
-                    <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.25rem;">
-                        @foreach($project->members as $member)
-                        <div style="font-size: 0.9rem;">
-                            <strong>{{ $member->name }}</strong>
-                            <span style="font-size: 0.75rem; color: var(--text-muted);">({{ $member->pivot->role_in_team === 'leader' ? 'قائد الفريق' : 'عضو مطور' }})</span>
-                        </div>
-                        @endforeach
+            <div style="display: flex; flex-direction: column; gap: 0.75rem; background: rgba(56, 189, 248, 0.06); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid rgba(56, 189, 248, 0.2);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="font-size: 0.8rem; color: #38bdf8; font-weight: 700;">
+                        <i class="fa-solid fa-users"></i> فريق عمل المشروع ({{ $project->members->count() }} طلاب)
                     </div>
                 </div>
+
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    @foreach($project->members as $member)
+                    <div style="font-size: 0.9rem; background: rgba(0,0,0,0.25); padding: 0.35rem 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                        <strong>{{ $member->name }}</strong>
+                        <span style="font-size: 0.75rem; color: {{ $member->pivot->role_in_team === 'leader' ? '#38bdf8' : 'var(--text-muted)' }};">
+                            ({{ $member->pivot->role_in_team === 'leader' ? 'قائد الفريق' : 'عضو مطور' }})
+                        </span>
+                    </div>
+                    @endforeach
+                </div>
+
+                <!-- Supervisor: Add Member Form -->
+                @if($user->isSupervisor() && $project->supervisor_id === $user->id && !empty($availableStudents) && count($availableStudents) > 0)
+                <details style="margin-top: 0.5rem; font-size: 0.85rem;">
+                    <summary style="cursor: pointer; color: #38bdf8; font-weight: 700;">
+                        <i class="fa-solid fa-user-plus"></i> إضافة عضو جديد للفريق
+                    </summary>
+                    <form action="{{ route('projects.members.add', $project) }}" method="POST" style="margin-top: 0.75rem; display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+                        @csrf
+                        <select name="student_id" required style="padding: 0.5rem; background: #0f172a; border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: white; font-family: inherit; font-size: 0.85rem;">
+                            <option value="">-- اختر طالباً لإضافته --</option>
+                            @foreach($availableStudents as $avail)
+                                <option value="{{ $avail->id }}">{{ $avail->name }} ({{ $avail->university_id }})</option>
+                            @endforeach
+                        </select>
+
+                        <select name="role_in_team" style="padding: 0.5rem; background: #0f172a; border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: white; font-family: inherit; font-size: 0.85rem;">
+                            <option value="member">عضو مطور (Member)</option>
+                            <option value="leader">قائد مشترك (Leader)</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-primary btn-sm">إضافة</button>
+                    </form>
+                </details>
+                @endif
             </div>
 
         </div>
@@ -95,7 +122,7 @@
 
     <!-- Milestones Section -->
     <div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem;">
             <div>
                 <h3 style="font-size: 1.35rem; font-weight: 800;">
                     <i class="fa-solid fa-list-check" style="color: var(--primary);"></i> مراحل تسليم المشروع (Milestones)
@@ -104,6 +131,49 @@
                     مقسمة زمنياً وفق خطة مادة هندسة البرمجيات مع أوزان ومعايير قبول واضحة:
                 </p>
             </div>
+
+            <!-- Supervisor: Add Milestone Trigger -->
+            @if($user->isSupervisor() && $project->supervisor_id === $user->id)
+            <details>
+                <summary class="btn btn-outline btn-sm" style="cursor: pointer; border-color: rgba(168, 85, 247, 0.4); color: #d8b4fe;">
+                    <i class="fa-solid fa-plus"></i> إضافة مرحلة تسليم جديدة
+                </summary>
+                <div class="card" style="margin-top: 1rem; border-color: rgba(168, 85, 247, 0.3);">
+                    <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 1rem; color: #d8b4fe;">إضافة مرحلة جديدة للمشروع</h4>
+                    <form action="{{ route('milestones.store', $project) }}" method="POST" style="display: flex; flex-direction: column; gap: 0.85rem;">
+                        @csrf
+                        <div>
+                            <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.25rem;">عنوان المرحلة:</label>
+                            <input type="text" name="title" required placeholder="مثال: المرحلة 5: النشر التجريبي واختبارات الأداء"
+                                style="width: 100%; padding: 0.55rem; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: white; font-family: inherit;">
+                        </div>
+
+                        <div>
+                            <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.25rem;">وصف المخرجات المطلوبة:</label>
+                            <textarea name="description" rows="2" required placeholder="اشرح ما يجب على الطلاب تسليمه..."
+                                style="width: 100%; padding: 0.55rem; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: white; font-family: inherit;"></textarea>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.25rem;">الموعد النهائي:</label>
+                                <input type="date" name="due_date" required min="{{ date('Y-m-d') }}"
+                                    style="width: 100%; padding: 0.55rem; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: white; font-family: inherit;">
+                            </div>
+                            <div>
+                                <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.25rem;">الوزن النسبي (%):</label>
+                                <input type="number" name="weight_percentage" required min="1" max="100" value="20"
+                                    style="width: 100%; padding: 0.55rem; background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: white; font-family: inherit;">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-sm" style="align-self: flex-start; background: linear-gradient(135deg, #a855f7, #6366f1);">
+                            حفظ المرحلة
+                        </button>
+                    </form>
+                </div>
+            </details>
+            @endif
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 1.25rem;">

@@ -17,7 +17,7 @@
             </h2>
             
             <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;">
-                منصة <strong>GradTrack</strong> صُممت لتنظيم دورة حياة مشاريع التخرج، بدءاً من صياغة وثائق المتطلبات (SRS)، وإدارة المراحل (Milestones)، وتتبع التسليمات والربط مع GitHub Actions و CI/CD.
+                منصة <strong>GradTrack</strong> صُممت لتنظيم دورة حياة مشاريع التخرج بين المشرفين الأكاديميين والطلاب، بدءاً من صياغة وثائق المتطلبات (SRS)، وإدارة المراحل (Milestones)، وتتبع التسليمات والربط مع GitHub Actions و CI/CD.
             </p>
 
             <div style="display: flex; flex-direction: column; gap: 0.85rem;">
@@ -46,7 +46,7 @@
     <div class="card" style="display: flex; flex-direction: column; justify-content: center;">
         <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem;">تسجيل الدخول إلى النظام</h3>
         <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1.5rem;">
-            أدخل بريدك الإلكتروني الأكاديمي وكلمة المرور، أو اختر حساباً تجريبياً للمناقشة:
+            أدخل بريدك الإلكتروني وكلمة المرور للدخول بحسابك (مشرف أو طالب):
         </p>
 
         <form action="{{ route('login.submit') }}" method="POST">
@@ -81,10 +81,17 @@
             </button>
         </form>
 
-        <!-- Quick One-Click Switcher for Professor & Student Evaluation -->
-        <div style="margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
+        <div style="text-align: center; margin-top: 1.25rem; font-size: 0.85rem; color: var(--text-secondary);">
+            ليس لديك حساب مسجل بعد؟
+            <a href="{{ route('register') }}" style="color: #38bdf8; font-weight: 700; text-decoration: none;">
+                <i class="fa-solid fa-user-plus"></i> إنشاء حساب جديد الآن
+            </a>
+        </div>
+
+        <!-- Quick Switcher for Defense Demonstration -->
+        <div style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border-color);">
             <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.75rem; text-align: center;">
-                <i class="fa-solid fa-bolt" style="color: #f59e0b;"></i> دخول سريع بضغطة زر (لمناقشة الدكتور):
+                <i class="fa-solid fa-bolt" style="color: #f59e0b;"></i> دخول تجريبي سريع (للمناقشة الأكاديمية):
             </div>
             
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
@@ -92,7 +99,7 @@
                     <i class="fa-solid fa-user-tie" style="color: #c084fc;"></i>
                     <div>
                         <div style="font-weight: 700; font-size: 0.85rem;">م. ساهر الهمداني</div>
-                        <div style="font-size: 0.7rem; color: #d8b4fe;">المشرف الأكاديمي</div>
+                        <div style="font-size: 0.7rem; color: #d8b4fe;">مشرف أكاديمي</div>
                     </div>
                 </a>
 

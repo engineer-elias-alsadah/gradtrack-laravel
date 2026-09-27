@@ -10,8 +10,8 @@
         <div>
             <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
                 <span class="role-badge {{ $user->role }}">
-                    <i class="fa-solid {{ $user->role === 'supervisor' ? 'fa-user-tie' : ($user->role === 'admin' ? 'fa-user-shield' : 'fa-user-graduate') }}"></i>
-                    {{ $user->role === 'supervisor' ? 'لوحة تحكم المشرف الأكاديمي' : ($user->role === 'admin' ? 'لوحة تحكم منسق القسم' : 'لوحة تحكم قائد المشروع') }}
+                    <i class="fa-solid {{ $user->role === 'supervisor' ? 'fa-user-tie' : 'fa-user-graduate' }}"></i>
+                    {{ $user->role === 'supervisor' ? 'لوحة تحكم المشرف الأكاديمي' : 'لوحة تحكم الطالب' }}
                 </span>
                 <span style="font-size: 0.85rem; color: var(--text-muted);">
                     <i class="fa-regular fa-clock"></i> العام الأكاديمي: 2026 / 2027
@@ -26,6 +26,11 @@
         </div>
 
         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            @if($user->isSupervisor())
+            <a href="{{ route('projects.create') }}" class="btn btn-primary" style="background: linear-gradient(135deg, #a855f7, #6366f1);">
+                <i class="fa-solid fa-folder-plus"></i> تأسيس مشروع جديد
+            </a>
+            @endif
             <a href="{{ route('edge-cases.index') }}" class="btn btn-outline" style="border-color: rgba(56, 189, 248, 0.4); color: #38bdf8;">
                 <i class="fa-solid fa-microscope"></i> معمل حالات الحافة (10 درجات)
             </a>

@@ -71,4 +71,44 @@ class AuthTest extends TestCase
         $response->assertRedirect('/dashboard');
         $this->assertAuthenticatedAs($user);
     }
+
+    public function test_guest_can_register_as_new_student(): void
+    {
+        $response = $this->post('/register', [
+            'name' => 'طالب جديد مسجل',
+            'email' => 'newstudent@university.edu',
+            'role' => 'student',
+            'university_id' => '44109999',
+            'department' => 'هندسة البرمجيات',
+            'password' => 'secret123',
+            'password_confirmation' => 'secret123',
+        ]);
+
+        $response->assertRedirect('/dashboard');
+        $this->assertDatabaseHas('users', [
+            'email' => 'newstudent@university.edu',
+            'role' => 'student',
+        ]);
+        $this->assertTrue(auth()->user()->isStudent());
+    }
+
+    public function test_guest_can_register_as_new_supervisor(): void
+    {
+        $response = $this->post('/register', [
+            'name' => 'مشرف أكاديمي جديد',
+            'email' => 'newsupervisor@university.edu',
+            'role' => 'supervisor',
+            'university_id' => 'PROF-999',
+            'department' => 'هندسة البرمجيات',
+            'password' => 'secret123',
+            'password_confirmation' => 'secret123',
+        ]);
+
+        $response->assertRedirect('/dashboard');
+        $this->assertDatabaseHas('users', [
+            'email' => 'newsupervisor@university.edu',
+            'role' => 'supervisor',
+        ]);
+        $this->assertTrue(auth()->user()->isSupervisor());
+    }
 }

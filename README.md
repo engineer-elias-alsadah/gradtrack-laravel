@@ -4,7 +4,7 @@
 ![CI/CD Build](https://img.shields.io/badge/CI%2FCD-Passing-emerald?style=for-the-badge&logo=githubactions&logoColor=white)
 ![Laravel](https://img.shields.io/badge/Laravel-11%2F12-red?style=for-the-badge&logo=laravel&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-8.3%2B-indigo?style=for-the-badge&logo=php&logoColor=white)
-![Tests](https://img.shields.io/badge/Tests-14%20Passed-success?style=for-the-badge&logo=checkmarx)
+![Tests](https://img.shields.io/badge/Tests-19%20Passed-success?style=for-the-badge&logo=checkmarx)
 ![Academic](https://img.shields.io/badge/Academic%20Year-2026%2F2027-blue?style=for-the-badge)
 
 ---
@@ -27,19 +27,24 @@
 
 ---
 
-## 🚀 المميزات الهندسية والبرمجية (Key Features)
+### 1. حل المشاكل الخمس الأساسية لمشاريع التخرج (The 5 Core Problems & Solutions)
+1. **المشكلة 1 (غياب الجدولة المرحلية):** يُحل عبر نظام جدولة الـ Milestones بأوزان محددة وحساب تراكمي لنسب الإنجاز.
+2. **المشكلة 2 (تشتت الملاحظات):** يُحل عبر دورة مراجعة متكاملة (Approved, Needs Revision) مع أرقام الإصدارات (v1, v2).
+3. **المشكلة 3 (عشوائية إدارة الأكواد):** يُحل بالربط الإلزامي بروابط مستودعات وفروع GitHub وتطبيق الـ Git Flow.
+4. **المشكلة 4 (تداخل الصلاحيات):** يُحل عبر عزل الصلاحيات وحماية المشاريع (403 Forbidden) ومنع التقييم الذاتي.
+5. **المشكلة 5 (إهمال حالات الحافة وغياب الاختبارات):** يُحل بمعمل حالات الحافة الـ 9 و 19 اختباراً مؤتمتاً في GitHub Actions CI.
 
-### 1. إدارة الهوية وتوزيع الصلاحيات (RBAC - Role-Based Access Control)
-- **المشرف الأكاديمي (Supervisor):** اعتماد المراحل، مراجعة التسليمات، رصد الدرجات، وتقديم التوجيهات.
-- **الطالب وقائد المشروع (Student / Team Lead):** رفع مخرجات المراحل، إرفاق روابط GitHub، ومتابعة الإصدارات.
-- **منسق القسم (Admin / Coordinator):** نظرة شمولية على نسب إنجاز كافة الفرق الطلابية.
+### 2. إدارة الهوية وتوزيع الصلاحيات (RBAC - Role-Based Access Control)
+- **المشرف الأكاديمي (Supervisor):** تأسيس مشاريع التخرج، جدولة المراحل، إضافة الطلاب للفرق، مراجعة التسليمات، ورصد الدرجات.
+- **الطالب وقائد المشروع (Student / Team Lead):** رفع مخرجات المراحل، إرفاق روابط GitHub، ومتابعة التعديلات والملاحظات.
+- **نظام تسجيل مفتوح ديناميكي:** يمكن لأي طالب أو مشرف جديد إنشاء حساب والانضمام عبر صفحة `/register`.
 
-### 2. دورة التسليم والمراجعة المرنة (Milestone Submission & Review Cycle)
+### 3. دورة التسليم والمراجعة المرنة (Milestone Submission & Review Cycle)
 - دعم تعدد الإصدارات (**Versioning: v1, v2...**) للمرحلة الواحدة في حال طلب المشرف إعادة التعديل (`Needs Revision`).
 - سجل تدقيق العمليات (**Activity Audit Trail**) لتوثيق كل حركة تتم داخل المشروع بالوقت والتاريخ.
 - زر تبديل سريع للحسابات التجريبية (**Quick Switcher**) لتسهيل المناقشة الشفهية مع المشرف.
 
-### 3. معمل حالات الحافة التفاعلي (Interactive Edge Cases Lab)
+### 4. معمل حالات الحافة التفاعلي (Interactive Edge Cases Lab)
 معالجة وتغطية سيناريوهات الفشل غير الطبيعية المحددة في المحاضرة:
 1. **حالات حافة البيانات:** التحقق الصارم من الحقول الفارغة، منع الروابط المشوهة، وضبط نطاق الدرجات (0 - 100).
 2. **حالات حافة الصلاحيات:** منع وصول أو تسليم طالب لمشروع فريق آخر (403 Forbidden)، وحظر التقييم الذاتي للطلاب.
@@ -129,10 +134,11 @@
 | المستخدم | البريد الإلكتروني | كلمة المرور | الدور الأكاديمي |
 | :--- | :--- | :--- | :--- |
 | **المهندس ساهر الهمداني** | `saher@university.edu` | `password123` | **مشرف أكاديمي (Supervisor)** |
+| **د. عادل الشميري** | `adel@university.edu` | `password123` | **مشرف أكاديمي ثانٍ (Supervisor)** |
 | **إلياس جمال الساده** | `elias@university.edu` | `password123` | **طالب وقائد المشروع (Student)** |
-| **أ.د. رئيس القسم** | `admin@university.edu` | `password123` | **منسق مشاريع التخرج (Admin)** |
+| **محمد أحمد الصالح** | `mohammed@university.edu` | `password123` | **طالب عضو فريق (Student)** |
 
-*(ملاحظة: يمكنك استخدام زر التبديل السريع المباشر في شريط التنقل أعلى الشاشة للتنقل بين الحسابات بضغطة زر واحدة أثناء المناقشة الشفهية).*
+*(ملاحظة: المنصة مفتوحة وتتيح تسجيل أي مشرف أو طالب جديد عبر الرابط `/register`، كما يمكنك استخدام أزرار التبديل السريع المباشرة في شريط التنقل أعلى الشاشة أثناء المناقشة).*
 
 ---
 

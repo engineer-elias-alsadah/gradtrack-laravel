@@ -167,7 +167,7 @@
                 @endif
 
                 <!-- Supervisor Review Form Trigger (Only shown if supervisor and this submission hasn't been approved yet) -->
-                @if(($user->isSupervisor() || $user->isAdmin()) && (!$submission->latestReview || $submission->latestReview->decision !== 'approved'))
+                @if($user->isSupervisor() && (!$submission->latestReview || $submission->latestReview->decision !== 'approved'))
                 <div style="margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
                     <details>
                         <summary style="cursor: pointer; color: #c084fc; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem;">

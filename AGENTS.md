@@ -16,7 +16,7 @@
 ---
 
 ## 2. هيكلية البيانات ونماذج الـ Eloquent (Data Models)
-1. **User:** يدير الحسابات، وله دور محدد: `student`، أو `supervisor`، أو `admin`.
+1. **User:** يدير الحسابات، وله دور محدد: `student`، أو `supervisor`.
 2. **Project:** يمثل مشروع التخرج وله مشرف (`supervisor_id`) وأعضاء من الطلاب.
 3. **ProjectMember:** جدول وسيط يربط الطلاب بالمشروع مع تحديد دورهم (`leader` أو `member`).
 4. **Milestone:** يمثل مرحلة تسليم (مثل: SRS, System Design, Prototype, Final Defense) مع تاريخ استحقاق (`due_date`) ووزن مئوي (`weight_percentage`) وحالة (`status`).

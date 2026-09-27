@@ -45,11 +45,6 @@ class User extends Authenticatable
         return $this->role === 'supervisor';
     }
 
-    public function isAdmin(): bool
-    {
-        return $this->role === 'admin';
-    }
-
     /**
      * Projects supervised by this user (if supervisor)
      */

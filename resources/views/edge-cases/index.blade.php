@@ -124,7 +124,7 @@
                         المخاطرة: إرسال طلب POST من طالب لمحاكاة تقييم المشرف.
                     </p>
                     <div style="background: #0f172a; padding: 0.5rem; border-radius: 4px; font-family: monospace; font-size: 0.75rem; color: #d8b4fe; direction: ltr;">
-                        if (! $user->isSupervisor() && ! $user->isAdmin()) abort(403);
+                        if (! $user->isSupervisor()) abort(403);
                     </div>
                 </div>
 

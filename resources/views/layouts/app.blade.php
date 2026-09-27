@@ -167,17 +167,6 @@
             border: 1px solid rgba(56, 189, 248, 0.4);
         }
 
-        .role-badge.admin {
-            background: rgba(16, 185, 129, 0.2);
-            color: #6ee7b7;
-            border: 1px solid rgba(16, 185, 129, 0.4);
-        }
-
-        .quick-switch-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
         .btn {
             font-family: inherit;
             display: inline-flex;
@@ -388,6 +377,13 @@
                         <i class="fa-solid fa-chart-pie"></i> لوحة التحكم
                     </a>
                 </li>
+                @if(auth()->user()->isSupervisor())
+                <li>
+                    <a href="{{ route('projects.create') }}" class="nav-link {{ request()->routeIs('projects.create') ? 'active' : '' }}" style="color: #c084fc;">
+                        <i class="fa-solid fa-plus-circle"></i> تأسيس مشروع جديد
+                    </a>
+                </li>
+                @endif
                 <li>
                     <a href="{{ route('edge-cases.index') }}" class="nav-link {{ request()->routeIs('edge-cases.index') ? 'active' : '' }}" style="color: #38bdf8;">
                         <i class="fa-solid fa-shield-halved"></i> معمل حالات الحافة (Edge Cases)
@@ -399,7 +395,7 @@
         <div class="user-menu">
             <!-- Quick Demo User Switcher (For live evaluation defense) -->
             <div style="display: flex; align-items: center; gap: 0.5rem; background: rgba(0,0,0,0.3); padding: 0.3rem 0.6rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-                <span style="font-size: 0.75rem; color: var(--text-muted);"><i class="fa-solid fa-users-viewfinder"></i> تبديل الحساب للمناقشة:</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted);"><i class="fa-solid fa-users-viewfinder"></i> تبديل الحساب:</span>
                 <a href="{{ route('quick-login', 1) }}" class="btn btn-outline btn-sm" title="المهندس ساهر الهمداني" style="{{ auth()->id() == 1 ? 'border-color: #a855f7; color: #d8b4fe;' : '' }}">
                     م. ساهر (مشرف)
                 </a>
@@ -412,7 +408,7 @@
                 <div style="text-align: left;">
                     <div style="font-weight: 700; font-size: 0.9rem;">{{ auth()->user()->name }}</div>
                     <span class="role-badge {{ auth()->user()->role }}">
-                        {{ auth()->user()->role === 'supervisor' ? 'مشرف أكاديمي' : (auth()->user()->role === 'admin' ? 'منسق القسم' : 'طالب') }}
+                        {{ auth()->user()->role === 'supervisor' ? 'مشرف أكاديمي' : 'طالب' }}
                     </span>
                 </div>
 
@@ -425,9 +421,12 @@
             </div>
         </div>
         @else
-        <div>
-            <a href="{{ route('login') }}" class="btn btn-primary">
+        <div style="display: flex; gap: 0.75rem;">
+            <a href="{{ route('login') }}" class="btn btn-outline btn-sm">
                 <i class="fa-solid fa-lock"></i> تسجيل الدخول
+            </a>
+            <a href="{{ route('register') }}" class="btn btn-primary btn-sm">
+                <i class="fa-solid fa-user-plus"></i> إنشاء حساب جديد
             </a>
         </div>
         @endauth

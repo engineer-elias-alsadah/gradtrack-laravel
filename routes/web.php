@@ -18,22 +18,28 @@ Route::get('/', function () {
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+    Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 });
 
 // Quick Switcher for Defense Demonstration
 Route::get('/quick-login/{userId}', [AuthController::class, 'quickLogin'])->name('quick-login');
 
-// Protected Routes
+// Protected Routes (Student & Supervisor)
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Projects
+    // Projects Management
+    Route::get('/projects/create', [ProjectController::class, 'create'])->name('projects.create');
+    Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
     Route::get('/projects/{project:slug}', [ProjectController::class, 'show'])->name('projects.show');
+    Route::post('/projects/{project:slug}/members', [ProjectController::class, 'addMember'])->name('projects.members.add');
 
-    // Milestones
+    // Milestones Management
+    Route::post('/projects/{project:slug}/milestones', [MilestoneController::class, 'store'])->name('milestones.store');
     Route::get('/projects/{project:slug}/milestones/{milestone}', [MilestoneController::class, 'show'])->name('milestones.show');
 
     // Submissions

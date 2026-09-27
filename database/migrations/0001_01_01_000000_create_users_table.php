@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('role')->default('student'); // student, supervisor, admin
+            $table->string('role')->default('student'); // student, supervisor
             $table->string('university_id')->nullable();
             $table->string('department')->default('هندسة البرمجيات');
             $table->string('phone')->nullable();
